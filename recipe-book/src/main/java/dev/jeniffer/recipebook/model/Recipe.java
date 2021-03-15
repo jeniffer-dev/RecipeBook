@@ -1,21 +1,26 @@
 package dev.jeniffer.recipebook.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-@Table(name = "recipes")
+@Table(name = "recipe")
 public class Recipe {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id; 
 	
-	@Column(name = "name")
+	@Column
 	private String name;
 	
 	@Column(name = "image")
@@ -27,50 +32,61 @@ public class Recipe {
 	@Column(name = "preparation_time")
 	private int preparationTime;
 	
+	@OneToMany(mappedBy = "recipe")
+    private List<Instruction> instructions;
 	
 	public Recipe() {
 		super();
 	}
 
-	public Recipe(String name, String imageUrl, int cookTime, int preparationTime) {
+	public Recipe(String name, String imageUrl, int cookTime, int preparationTime, List<Instruction> instructions) {
 		super();
 		this.name = name;
 		this.imageUrl = imageUrl;
 		this.cookTime = cookTime;
 		this.preparationTime = preparationTime;
+		this.instructions = instructions;
 	}
-	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getImageUrl() {
 		return imageUrl;
 	}
+
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
 	public int getCookTime() {
 		return cookTime;
 	}
+
 	public void setCookTime(int cookTime) {
 		this.cookTime = cookTime;
 	}
+
 	public int getPreparationTime() {
 		return preparationTime;
 	}
+
 	public void setPreparationTime(int preparationTime) {
 		this.preparationTime = preparationTime;
 	}
-	
-	
+
+	@JsonManagedReference
+	public List<Instruction> getInstructions() {
+		return instructions;
+	}
+
+	public void setInstructions(List<Instruction> instructions) {
+		this.instructions = instructions;
+	}
 
 }
