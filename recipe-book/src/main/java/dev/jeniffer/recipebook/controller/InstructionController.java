@@ -19,26 +19,26 @@ import dev.jeniffer.recipebook.repository.RecipeRepository;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/recipes")
 public class InstructionController {
-	
+
 	@Autowired
 	private InstructionRepository instructionRepository;
-	
+
 	@Autowired
 	private RecipeRepository recipeRepository;
-	
+
 	@GetMapping("/{recipeId}/instructions")
-    public Instruction getAllInstructionsByRecipeId(@PathVariable (value = "recipeId") Long recipeId) {
-        return (Instruction) instructionRepository.findByRecipeId(recipeId);
-    }
-	
-	@PostMapping("/{recipeId}/instruction")
-	public Optional<Object> createInstruction(@PathVariable (value = "recipeId") Long recipeId, 	
-										@RequestBody Instruction instruction) {
-		return recipeRepository.findById(recipeId).map(recipe -> {
-			instruction.setRecipe(recipe);
-			return instructionRepository.save(instruction);
-		});	
+	public Instruction getAllInstructionsByRecipeId(@PathVariable (value = "recipeId") Long recipeId) {
+		return (Instruction) instructionRepository.findByRecipeId(recipeId);
 	}
+
+//	@PostMapping("/{recipeId}/instruction")
+//	public Optional<Object> createInstruction(@PathVariable (value = "recipeId") Long recipeId, 	
+//			@RequestBody Instruction instruction) {
+//		return recipeRepository.findById(recipeId).map(recipe -> {
+//			instruction.setRecipe(recipe);
+//			return instructionRepository.save(instruction);
+//		});	
+//	}
 
 
 }

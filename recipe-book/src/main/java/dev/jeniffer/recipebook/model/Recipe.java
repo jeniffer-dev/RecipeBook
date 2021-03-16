@@ -35,17 +35,22 @@ public class Recipe {
 	@OneToMany(mappedBy = "recipe")
     private List<Instruction> instructions;
 	
+	@OneToMany(mappedBy = "recipe")
+	private List<RecipeIngredient> recipeIngredients;
+	
 	public Recipe() {
 		super();
 	}
 
-	public Recipe(String name, String imageUrl, int cookTime, int preparationTime, List<Instruction> instructions) {
+	public Recipe(String name, String imageUrl, int cookTime, int preparationTime, List<Instruction> instructions,
+			List<RecipeIngredient> recipeIngredients) {
 		super();
 		this.name = name;
 		this.imageUrl = imageUrl;
 		this.cookTime = cookTime;
 		this.preparationTime = preparationTime;
 		this.instructions = instructions;
+		this.recipeIngredients = recipeIngredients;
 	}
 
 	public String getName() {
@@ -88,5 +93,15 @@ public class Recipe {
 	public void setInstructions(List<Instruction> instructions) {
 		this.instructions = instructions;
 	}
+
+	public List<RecipeIngredient> getRecipeIngredients() {
+		return recipeIngredients;
+	}
+
+	public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+		this.recipeIngredients = recipeIngredients;
+	}
+	
+	
 
 }

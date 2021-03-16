@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.jeniffer.recipebook.repository.InstructionRepository;
 import dev.jeniffer.recipebook.repository.RecipeRepository;
+import dev.jeniffer.recipebook.model.Instruction;
 import dev.jeniffer.recipebook.model.Recipe;
 
 @RestController
@@ -24,6 +26,9 @@ public class RecipeController {
 	
 	@Autowired
 	private RecipeRepository recipeRepository;
+	
+	@Autowired
+	private InstructionRepository instructionRepository;
 	
 	@GetMapping("")
 	public List<Recipe> getAllRecipe() {
@@ -46,6 +51,14 @@ public class RecipeController {
 		recipeRepository.deleteById(recipeId);
 	}
 	
+	@PostMapping("/{recipeId}/instruction")
+	public Optional<Object> createInstruction(@PathVariable (value = "recipeId") Long recipeId, 	
+			@RequestBody Instruction instruction) {
+		return recipeRepository.findById(recipeId).map(recipe -> {
+			instruction.setRecipe(recipe);
+			return instructionRepository.save(instruction);
+		});	
+	}
 	
 
 }
