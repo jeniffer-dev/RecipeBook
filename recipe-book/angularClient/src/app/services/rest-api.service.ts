@@ -35,9 +35,6 @@ export class DataStorageService {
   }
 
   removeRecipe(id: number){
-    this.http.delete<Recipe>(this.apiUrl + '/recipes/' + id, this.httpOptions)
-      .subscribe(data => {
-        console.log(data);
-      });
+    return this.http.delete<Recipe>(this.apiUrl + '/recipes/' + id, this.httpOptions);
   }
 }

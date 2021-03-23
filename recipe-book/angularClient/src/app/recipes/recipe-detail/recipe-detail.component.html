@@ -60,10 +60,12 @@
     </mat-grid-tile>
       <mat-grid-tile colspan="6" rowspan="1">
         <div class="icons">
-        <button mat-fab color="accent" aria-label="edit">
+        <button mat-fab color="accent" aria-label="edit"
+          (click)="onEditRecipe()">
             <mat-icon>mode_edit</mat-icon>
           </button>
-          <button mat-fab color="accent" aria-label="delete">
+          <button mat-fab color="accent" aria-label="delete"
+            (click)="onRemove()">
               <mat-icon>delete</mat-icon>
             </button>
           </div>

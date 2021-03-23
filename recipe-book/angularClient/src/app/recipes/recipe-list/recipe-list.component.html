@@ -1,8 +1,8 @@
 <div class="content">
-  <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="50%" fxLayoutAlign="stretch">
-      <app-recipe-item *ngFor="let recipeElement of recipes"
-      [recipe]="recipeElement"></app-recipe-item>
-    </div>
+  <div fxLayout="row wrap">
+      <app-recipe-item
+      *ngFor="let recipeElement of recipes"
+      [recipe]="recipeElement"
+      fxFlex="20%" fxLayoutAlign="space-evenly stretch" ></app-recipe-item>
     </div>
   </div>

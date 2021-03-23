@@ -1,5 +1,6 @@
 .content {
   margin: 100px;
+  justify-content: center;
 }
 
 .content > mat-card {

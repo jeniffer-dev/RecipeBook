@@ -30,14 +30,19 @@ export class RecipeDetailComponent implements OnInit {
   getRecipe(id: number) {
     this.dataStorageService.fetchRecipeById(id).subscribe((recipe) => {
       this.recipeDetail = recipe;
-      console.log("recipeDetaiiilll" + this.recipeDetail);
-      console.log(this.recipeDetail);
-
     });
   }
 
   onRemove(){
-    this.dataStorageService.removeRecipe(this.id);
+    this.dataStorageService.removeRecipe(this.id).subscribe(data => {
+      console.log(data);
+      this.router.navigate(['/recipes']);
+    });
+
+  }
+
+  onEditRecipe() {
+    this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
 }

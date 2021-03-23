@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Ingredient } from 'src/app/model/ingredient.model';
 import { Recipe } from 'src/app/model/recipe.model';
 import { RecipeIngredient } from 'src/app/model/recipeIngredient.model';
@@ -13,17 +13,28 @@ import { DataStorageService } from 'src/app/services/rest-api.service';
   styleUrls: ['./recipe-edit.component.css']
 })
 export class RecipeEditComponent implements OnInit {
-  id: number = 84;
+  id: number;
   editMode = true;
   recipeForm: FormGroup;
   recipe: Recipe;
 
   constructor(private dataStorageService: DataStorageService,
-    private recipeService: RecipeService,
+    private route: ActivatedRoute,
     private router: Router) { }
 
     ngOnInit(): void {
+      this.getRecipeId();
       this.initForm();
+    }
+
+    private getRecipeId() {
+      this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = +params['id'];
+          this.editMode = params['id'] != null;
+        }
+      );
     }
 
     private initForm() {
@@ -34,7 +45,7 @@ export class RecipeEditComponent implements OnInit {
       let recipeIngredients = new FormArray([]);
 
       if (this.editMode) {
-        this.dataStorageService.fetchRecipeById(84).subscribe( recipe => {
+        this.dataStorageService.fetchRecipeById(this.id).subscribe( recipe => {
           this.recipeForm = new FormGroup({
             'name': new FormControl(recipe.name, Validators.required),
             'imageUrl': new FormControl(recipe.imageUrl, Validators.required),
