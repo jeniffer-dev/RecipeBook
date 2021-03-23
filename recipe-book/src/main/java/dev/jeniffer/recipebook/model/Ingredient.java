@@ -53,7 +53,4 @@ public class Ingredient {
 	public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
 		this.recipeIngredients = recipeIngredients;
 	}
-	
-	
- 
 }

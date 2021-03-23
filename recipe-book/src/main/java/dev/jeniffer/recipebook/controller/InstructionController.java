@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,18 +28,7 @@ public class InstructionController {
 	private RecipeRepository recipeRepository;
 
 	@GetMapping("/{recipeId}/instructions")
-	public Instruction getAllInstructionsByRecipeId(@PathVariable (value = "recipeId") Long recipeId) {
+	public Instruction getAllInstructionsByRecipeId(@PathVariable Long recipeId) {
 		return (Instruction) instructionRepository.findByRecipeId(recipeId);
 	}
-
-//	@PostMapping("/{recipeId}/instruction")
-//	public Optional<Object> createInstruction(@PathVariable (value = "recipeId") Long recipeId, 	
-//			@RequestBody Instruction instruction) {
-//		return recipeRepository.findById(recipeId).map(recipe -> {
-//			instruction.setRecipe(recipe);
-//			return instructionRepository.save(instruction);
-//		});	
-//	}
-
-
 }

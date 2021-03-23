@@ -1,0 +1,89 @@
+<div class="form-container">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <mat-grid-list cols="4" rowHeight="100px" >
+        <mat-grid-tile colspan="4" rowspan="1">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput
+              type="text"
+            formControlName="name"
+              required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="4" rowspan="1">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Image URL</mat-label>
+            <input matInput
+              type="text"
+              id="imageUrl"
+              formControlName="imageUrl"
+              #imageUrl>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Cook time</mat-label>
+            <input matInput
+            type="number"
+            formControlName="cookTime"
+            required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Prepation time</mat-label>
+            <input matInput
+            type="number"
+            formControlName="preparationTime"
+            required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <div formArrayName="recipeIngredients">
+          <div *ngFor="let ingredientCtrl of controls; let i = index"
+            [formGroupName]="i">
+            <mat-grid-tile colspan="1">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Ingredient</mat-label>
+                <input matInput
+                type="text"
+                formControlName="name">
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Amount</mat-label>
+                <input matInput
+                type="text"
+                formControlName="amount">
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Unit</mat-label>
+                <input matInput
+                type="text"
+                formControlName="unit">
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+              <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-grid-tile>
+          </div>
+        </div>
+        <mat-grid-tile colspan="4" rowspan="1">
+          <button
+          type="button"
+          (click)="onAddIngredient()"
+          mat-raised-button color="accent">
+            Add ingredient
+          </button>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="4" rowspan="1">
+          <button mat-raised-button color="primary"
+          type="submit">Save</button>
+        </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+  </div>

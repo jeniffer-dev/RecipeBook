@@ -1,0 +1,81 @@
+
+img {
+  border-radius: 7%;
+  max-height: 100%;
+}
+
+.container {
+  margin: 100px 500px;
+}
+
+.recipeContainer {
+    margin: 50px auto;
+}
+
+.ingredientsContainer {
+  margin: 100px 100px;
+
+}
+
+.ingredientsTitle {
+  margin-bottom: 50px;
+  font-family: 'Roboto';
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.internalMatGrid, .ingAmount{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 45px;
+}
+
+.internalMatGrid, p {
+  font-size: 20px;
+}
+
+.grid-layout-custom{
+  width: 50vw;
+  height: 50vh;
+}
+
+.tile {
+  /* margin: 20px; */
+  max-height: 300px;
+  min-height: 50px;
+  display: inline-block;
+  align-items: flex-start;
+  font-family: 'Lobster', sans-serif;
+  font-size: 60px;
+}
+
+
+.ingName {
+  font-size: 24px;
+  text-transform: capitalize;
+}
+
+.vertical-divider {
+  border-top-width: 0;
+  border-right-width: 1px;
+  border-right-style: solid;
+  height: 100%;
+}
+
+.mat-divider {
+  height: 100%;
+  position: relative !important;
+}
+
+.mat-fab {
+  margin-left: 20px;
+}
+
+.icons {
+  margin: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

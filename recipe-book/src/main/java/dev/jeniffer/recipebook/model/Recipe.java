@@ -42,15 +42,24 @@ public class Recipe {
 		super();
 	}
 
-	public Recipe(String name, String imageUrl, int cookTime, int preparationTime, List<Instruction> instructions,
+	public Recipe(long id, String name, String imageUrl, int cookTime, int preparationTime, List<Instruction> instructions,
 			List<RecipeIngredient> recipeIngredients) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.imageUrl = imageUrl;
 		this.cookTime = cookTime;
 		this.preparationTime = preparationTime;
 		this.instructions = instructions;
 		this.recipeIngredients = recipeIngredients;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getName() {

@@ -1,0 +1,14 @@
+.form-container{
+    width: 60%;
+    margin: 200px auto;
+    margin-top: 200 px;
+    text-align: center;
+}
+
+.mat-form-field {
+  width: 500px;
+}
+
+.form-group{
+    display: block
+}

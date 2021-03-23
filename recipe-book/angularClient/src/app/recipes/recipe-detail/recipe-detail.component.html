@@ -1,0 +1,90 @@
+<div class="container">
+<div class="recipeContainer">
+  <mat-grid-list cols="6" rowHeight="100px">
+    <mat-grid-tile colspan="3" rowspan="2">
+      <div class="tile">
+        {{ recipeDetail.name }}
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3" rowspan="4">
+      <img
+      [src]="recipeDetail.imageUrl"
+      layout-fill>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="3" rowspan="1">
+      Description
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+      <div class="internalMatGrid">
+        <mat-grid-list cols="1" rowHeight="40px" class="grid-layout-custom">
+          <mat-grid-tile colspan="1" rowspan="1">
+            <div class="ingAmount">
+              {{ recipeDetail.recipeIngredients.length }}
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            Ingredients
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-divider vertical style="height:100px"></mat-divider>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+      <div class="internalMatGrid">
+        <mat-grid-list cols="1" rowHeight="40px" class="grid-layout-custom">
+          <mat-grid-tile colspan="1" rowspan="1">
+            <div class="ingAmount">
+              {{ recipeDetail.preparationTime }}'
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            Preparation time
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-divider vertical style="height:100px"></mat-divider>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+      <div class="internalMatGrid">
+        <mat-grid-list cols="1" rowHeight="40px" class="grid-layout-custom" >
+          <mat-grid-tile colspan="1" rowspan="1">
+            <div class="ingAmount">
+              {{ recipeDetail.cookTime }}'
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            Cook time
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </mat-grid-tile>
+      <mat-grid-tile colspan="6" rowspan="1">
+        <div class="icons">
+        <button mat-fab color="accent" aria-label="edit">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+          <button mat-fab color="accent" aria-label="delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+      </mat-grid-tile>
+</mat-grid-list>
+</div>
+<hr>
+<div class="ingredientsContainer">
+  <div class="ingredientsTitle">
+    Ingredients
+  </div>
+
+  <mat-list>
+    <mat-list-item *ngFor="let ingredient of recipeDetail.recipeIngredients">
+      <mat-icon mat-list-icon>add_circle_outlined</mat-icon>
+        <div mat-line>
+          <div class="ingName">
+            {{ingredient.ingredient.name}}</div>
+      </div>
+      <div mat-line> {{ingredient.amount}} {{ingredient.unit}} </div>
+      </mat-list-item>
+  </mat-list>
+
+</div>

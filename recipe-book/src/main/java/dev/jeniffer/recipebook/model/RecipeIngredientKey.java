@@ -1,13 +1,14 @@
 package dev.jeniffer.recipebook.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class RecipeIngredientKey implements Serializable {
-	
+
 	@Column(name = "recipe_id")
 	Long recipeId;
 	
@@ -23,36 +24,19 @@ public class RecipeIngredientKey implements Serializable {
 		this.recipeId = recipeId;
 		this.ingredientId = ingredientId;
 	}
-
+	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ingredientId == null) ? 0 : ingredientId.hashCode());
-		result = prime * result + ((recipeId == null) ? 0 : recipeId.hashCode());
-		return result;
+		return Objects.hash(getIngredientId(), getRecipeId());
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RecipeIngredientKey other = (RecipeIngredientKey) obj;
-		if (ingredientId == null) {
-			if (other.ingredientId != null)
-				return false;
-		} else if (!ingredientId.equals(other.ingredientId))
-			return false;
-		if (recipeId == null) {
-			if (other.recipeId != null)
-				return false;
-		} else if (!recipeId.equals(other.recipeId))
-			return false;
-		return true;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+        if (!(o instanceof RecipeIngredientKey)) return false;
+        RecipeIngredientKey that = (RecipeIngredientKey) o;
+        return Objects.equals(getRecipeId(), that.getRecipeId()) &&
+                Objects.equals(getIngredientId(), that.getIngredientId());
 	}
 
 	public Long getRecipeId() {

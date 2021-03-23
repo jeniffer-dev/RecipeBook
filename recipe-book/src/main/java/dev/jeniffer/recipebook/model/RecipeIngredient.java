@@ -9,18 +9,22 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(value = {
+		"id",
+	    "recipe"
+	})
 @Entity
 @Table(name = "recipe_ingredient")
 public class RecipeIngredient {
 	
 	@EmbeddedId
-	private RecipeIngredientKey id;
+	private RecipeIngredientKey id = new RecipeIngredientKey();
 	
 	@ManyToOne
 	@MapsId("recipeId")
 	@JoinColumn(name = "recipe_id")
-	@JsonIgnore
 	private Recipe recipe;
 	
 	@ManyToOne
@@ -44,32 +48,6 @@ public class RecipeIngredient {
 		this.ingredient = ingredient;
 		this.amount = amount;
 		this.unit = unit;
-	}
-	
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RecipeIngredient other = (RecipeIngredient) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 
 	public Recipe getRecipe() {
