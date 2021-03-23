@@ -60,10 +60,13 @@ public class RecipeController {
 		if (recipeIngredients != null) {
 			List<RecipeIngredient> savedRecipeIngredients = new ArrayList<>();
 			recipeIngredients.forEach(recipeIng -> {
-				Ingredient ingredient = recipeIng.getIngredient();
-				recipeIng.setRecipe(recipe);
+				Ingredient ingredient = ingredientRepository.findByName(recipeIng.getIngredient().getName());
+				if (ingredient == null) {
+					ingredient = recipeIng.getIngredient();
+					this.ingredientRepository.save(ingredient);
+				}
 				recipeIng.setIngredient(ingredient);
-				this.ingredientRepository.save(ingredient);
+				recipeIng.setRecipe(recipe);
 				this.recipeIngredientRepository.save(recipeIng);
 				savedRecipeIngredients.add(recipeIng);
 			});

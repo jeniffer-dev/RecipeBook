@@ -9,5 +9,5 @@ import dev.jeniffer.recipebook.model.Instruction;
 
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
-
+	Ingredient findByName(String name);
 }
