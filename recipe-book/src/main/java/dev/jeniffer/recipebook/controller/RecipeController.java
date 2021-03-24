@@ -55,7 +55,6 @@ public class RecipeController {
 	
 	@PostMapping("")
 	public Recipe createRecipe(@RequestBody Recipe recipe) {
-		this.recipeRepository.save(recipe);
 		List<RecipeIngredient> recipeIngredients = recipe.getRecipeIngredients();
 		if (recipeIngredients != null) {
 			List<RecipeIngredient> savedRecipeIngredients = new ArrayList<>();
@@ -72,7 +71,7 @@ public class RecipeController {
 			});
 			recipe.setRecipeIngredients(savedRecipeIngredients);
 		}
-		return recipe;
+		return this.recipeRepository.save(recipe);
 	}
 	
 	@PutMapping("/{recipeId}") 

@@ -4,7 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Ingredient } from 'src/app/model/ingredient.model';
 import { Recipe } from 'src/app/model/recipe.model';
 import { RecipeIngredient } from 'src/app/model/recipeIngredient.model';
-import { RecipeService } from 'src/app/services/recipe.service';
 import { DataStorageService } from 'src/app/services/rest-api.service';
 
 @Component({
