@@ -92,10 +92,12 @@ export class RecipeEditComponent implements OnInit {
 
       onSubmit() {
         if (this.editMode) {
-          this.dataStorageService.updateRecipe(this.id, this.createRecipe())
+          this.dataStorageService.updateRecipe(this.id, this.createRecipe());
         } else {
           this.dataStorageService.createRecipe(this.createRecipe());
         }
+        this.router.navigate(['/recipes/' + this.id]);
+
       }
 
       private createRecipe(): Recipe {
