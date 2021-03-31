@@ -94,10 +94,11 @@ export class RecipeEditComponent implements OnInit {
         if (this.editMode) {
           this.dataStorageService.updateRecipe(this.id, this.createRecipe());
         } else {
-          this.dataStorageService.createRecipe(this.createRecipe());
+          this.dataStorageService.createRecipe(this.createRecipe()).subscribe(data => {
+            console.log(data);
+            this.router.navigate(['/recipes/' + data.id]);
+          });
         }
-        this.router.navigate(['/recipes/' + this.id]);
-
       }
 
       private createRecipe(): Recipe {

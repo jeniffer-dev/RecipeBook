@@ -25,13 +25,11 @@ export class DataStorageService {
   }
 
   createRecipe(recipe: Recipe)  {
-    this.http.post<Recipe>(this.apiUrl + '/recipes', JSON.stringify(recipe), this.httpOptions)
-      .subscribe(data => {});
+    return this.http.post<Recipe>(this.apiUrl + '/recipes', JSON.stringify(recipe), this.httpOptions);
   }
 
   updateRecipe(id, recipe) {
-    this.http.put<Recipe>(this.apiUrl + '/recipes/' + id, JSON.stringify(recipe), this.httpOptions)
-      .subscribe(data => {});
+    return this.http.put<Recipe>(this.apiUrl + '/recipes/' + id, JSON.stringify(recipe), this.httpOptions);
   }
 
   removeRecipe(id: number){
