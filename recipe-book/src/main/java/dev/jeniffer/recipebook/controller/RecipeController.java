@@ -2,9 +2,9 @@ package dev.jeniffer.recipebook.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +20,7 @@ import dev.jeniffer.recipebook.repository.IngredientRepository;
 import dev.jeniffer.recipebook.repository.InstructionRepository;
 import dev.jeniffer.recipebook.repository.RecipeIngredientRepository;
 import dev.jeniffer.recipebook.repository.RecipeRepository;
+import dev.jeniffer.recipebook.exception.ResourceNotFoundException;
 import dev.jeniffer.recipebook.model.Ingredient;
 import dev.jeniffer.recipebook.model.Instruction;
 import dev.jeniffer.recipebook.model.Recipe;
@@ -43,18 +44,26 @@ public class RecipeController {
 	private InstructionRepository instructionRepository; 
 	
 	@GetMapping("")
-	public List<Recipe> getAllRecipes() {
-		return this.recipeRepository.findAll();
+	public ResponseEntity<List<Recipe>> getAllRecipes() {
+		List<Recipe> recipes = this.recipeRepository.findAll();
+		
+		if (recipes.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
+		}
+		
+		return new ResponseEntity<>(recipes, HttpStatus.OK);
+
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Recipe>> getRecipeById(@PathVariable Long id) {
-		Optional<Recipe> recipe = recipeRepository.findById(id);
-		return ResponseEntity.ok().body(recipe);
+	public ResponseEntity<Recipe> getRecipeById(@PathVariable Long id) throws ResourceNotFoundException {
+		Recipe recipe = recipeRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Not found recipe with id: " + id));
+		return new ResponseEntity<>(recipe, HttpStatus.OK);
 	}
 	
 	@PostMapping("")
-	public Recipe createRecipe(@RequestBody Recipe recipe) {
+	public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
 		this.recipeRepository.save(recipe);
 		List<RecipeIngredient> recipeIngredients = recipe.getRecipeIngredients();
 		if (recipeIngredients != null) {
@@ -72,50 +81,42 @@ public class RecipeController {
 			});
 			recipe.setRecipeIngredients(savedRecipeIngredients);
 		}
-		return recipe;
+		return new ResponseEntity<>(recipe, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{recipeId}") 
-	public Optional<Object> updateRecipe(@PathVariable Long recipeId,
-			@RequestBody Recipe recipeRequest) {
-		if(!recipeRepository.existsById(recipeId)) {
-		}
-		return recipeRepository.findById(recipeId).map(recipe -> {
+	public ResponseEntity<Recipe> updateRecipe(@PathVariable Long recipeId,
+			@RequestBody Recipe recipeRequest) throws ResourceNotFoundException {
+		Recipe recipe = recipeRepository.findById(recipeId)
+				.orElseThrow(() -> new ResourceNotFoundException("Not found recipe with id: " + recipeId));
+		
 			recipe.setName(recipeRequest.getName());
 			recipe.setCookTime(recipeRequest.getCookTime());
 			recipe.setPreparationTime(recipeRequest.getPreparationTime());
-			return recipeRepository.save(recipe);
-		});
+			return new ResponseEntity<>(recipeRepository.save(recipe), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("")
-	public void deleteRecipes() {
+	public ResponseEntity<Recipe> deleteRecipes() {
 		recipeRepository.deleteAll();
+		
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@DeleteMapping("/{recipeId}")
-	public void deleteRecipe(@PathVariable Long recipeId) {
+	public ResponseEntity<Recipe> deleteRecipe(@PathVariable Long recipeId) {
 		recipeRepository.deleteById(recipeId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@PostMapping("/{recipeId}/instructions")
-	public Optional<Instruction> createInstruction(@PathVariable Long recipeId, 	
-			@RequestBody Instruction instruction) {
-		return recipeRepository.findById(recipeId).map(recipe -> {
+	public ResponseEntity<Instruction> createInstruction(@PathVariable Long recipeId, 	
+			@RequestBody Instruction instruction) throws ResourceNotFoundException {
+		Recipe recipe = recipeRepository.findById(recipeId)
+				.orElseThrow(() -> new ResourceNotFoundException("Not found recipe with id: " + recipeId));
 			instruction.setRecipe(recipe);
-			return instructionRepository.save(instruction);
-		});	
-	}
-	
-	@PutMapping("/{recipeId}/instructions/{instructionId}")
-	public Optional<Instruction> updateInstruction(@PathVariable Long recipeId,
-			@PathVariable Long instructionId,
-			@RequestBody Instruction instructionRequest) {
-		return instructionRepository.findById(instructionId).map(instruction -> {
-			instruction.setStepDescription(instructionRequest.getStepDescription());
-			return instructionRepository.save(instruction);
-		});
-		
+		return new ResponseEntity<>(instructionRepository.save(instruction), HttpStatus.OK);
+					
 	}
 	
 
