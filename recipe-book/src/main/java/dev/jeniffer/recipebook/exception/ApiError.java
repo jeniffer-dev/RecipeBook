@@ -1,18 +1,16 @@
 package dev.jeniffer.recipebook.exception;
 
-import org.springframework.http.HttpStatus;
-
 import java.util.Date;
 
 public class ApiError {
 	
-	private HttpStatus status;
+	private int status;
 	private Date date;
 	private String message;	
 	private String debugMessage;
 	
 	
-	public ApiError(HttpStatus status, Date date, String message, String debugMessage) {
+	public ApiError(int status, Date date, String message, String debugMessage) {
 		super();
 		this.status = status;
 		this.date = date;
@@ -20,7 +18,7 @@ public class ApiError {
 		this.debugMessage = debugMessage;
 	}
 	
-	public HttpStatus getStatus() {
+	public int getStatus() {
 		return status;
 	}
 	public Date getDate() {
@@ -32,7 +30,7 @@ public class ApiError {
 	public String getDebugMessage() {
 		return debugMessage;
 	}
-	public void setStatus(HttpStatus status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public void setDate(Date date) {
