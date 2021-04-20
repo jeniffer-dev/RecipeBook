@@ -2,10 +2,11 @@
 img {
   border-radius: 7%;
   max-height: 100%;
+  min-height: 20%;
 }
 
 .container {
-  margin: 100px 500px;
+  padding: 5% 20%;
 }
 
 .recipeContainer {
@@ -13,14 +14,14 @@ img {
 }
 
 .ingredientsContainer {
-  margin: 100px 100px;
+  margin: 10%;
 
 }
 
 .ingredientsTitle {
-  margin-bottom: 50px;
+  margin-bottom: 4%;
   font-family: 'Roboto';
-  font-size: 40px;
+  font-size: 300%;
   font-weight: bold;
 }
 

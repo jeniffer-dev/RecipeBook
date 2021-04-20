@@ -19,7 +19,6 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule} from '@angular/material/card';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
-import { RecipeService } from './services/recipe.service';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
@@ -56,7 +55,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatInputModule,
     MatDividerModule
   ],
-  providers: [RecipeService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

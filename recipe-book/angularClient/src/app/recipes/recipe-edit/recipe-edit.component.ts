@@ -56,7 +56,7 @@ export class RecipeEditComponent implements OnInit {
             for (let ingredient of recipe.recipeIngredients) {
               recipeIngredients.push(
                 new FormGroup({
-                  'name': new FormControl(ingredient.ingredient.name, Validators.required),
+                  'name': new FormControl(ingredient.ingredient.name),
                   'amount': new FormControl(ingredient.amount, [Validators.required,
                     Validators.pattern(/^[1-9]+[0-9]*$/)]),
                     'unit': new FormControl(ingredient.unit, Validators.required)
@@ -92,7 +92,10 @@ export class RecipeEditComponent implements OnInit {
 
       onSubmit() {
         if (this.editMode) {
-          this.dataStorageService.updateRecipe(this.id, this.createRecipe());
+          this.dataStorageService.updateRecipe(this.id, this.createRecipe()).subscribe(data => {
+            console.log(data);
+            this.router.navigate(['/recipes/' + data.id]);
+          });
         } else {
           this.dataStorageService.createRecipe(this.createRecipe()).subscribe(data => {
             console.log(data);
@@ -116,6 +119,10 @@ export class RecipeEditComponent implements OnInit {
           recipeIngredredients
         );
         return recipe;
+      }
+
+      private onRemoveRecipeIngredient() {
+        
       }
 
       get controls(){

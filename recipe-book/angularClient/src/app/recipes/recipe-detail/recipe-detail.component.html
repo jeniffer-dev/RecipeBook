@@ -3,12 +3,12 @@
   <mat-grid-list cols="6" rowHeight="100px">
     <mat-grid-tile colspan="3" rowspan="2">
       <div class="tile">
-        {{ recipeDetail.name }}
+        {{ recipeDetail?.name }}
       </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="3" rowspan="4">
       <img
-      [src]="recipeDetail.imageUrl"
+      [src]="recipeDetail?.imageUrl"
       layout-fill>
     </mat-grid-tile>
     <mat-grid-tile colspan="3" rowspan="1">
@@ -19,7 +19,7 @@
         <mat-grid-list cols="1" rowHeight="40px" class="grid-layout-custom">
           <mat-grid-tile colspan="1" rowspan="1">
             <div class="ingAmount">
-              {{ recipeDetail.recipeIngredients.length }}
+              {{ recipeDetail?.recipeIngredients.length }}
             </div>
           </mat-grid-tile>
           <mat-grid-tile colspan="1" rowspan="1">
@@ -34,7 +34,7 @@
         <mat-grid-list cols="1" rowHeight="40px" class="grid-layout-custom">
           <mat-grid-tile colspan="1" rowspan="1">
             <div class="ingAmount">
-              {{ recipeDetail.preparationTime }}'
+              {{ recipeDetail?.preparationTime }}'
             </div>
           </mat-grid-tile>
           <mat-grid-tile colspan="1" rowspan="1">
@@ -49,7 +49,7 @@
         <mat-grid-list cols="1" rowHeight="40px" class="grid-layout-custom" >
           <mat-grid-tile colspan="1" rowspan="1">
             <div class="ingAmount">
-              {{ recipeDetail.cookTime }}'
+              {{ recipeDetail?.cookTime }}'
             </div>
           </mat-grid-tile>
           <mat-grid-tile colspan="1" rowspan="1">
@@ -79,7 +79,7 @@
   </div>
 
   <mat-list>
-    <mat-list-item *ngFor="let ingredient of recipeDetail.recipeIngredients">
+    <mat-list-item *ngFor="let ingredient of recipeDetail?.recipeIngredients">
       <mat-icon mat-list-icon>add_circle_outlined</mat-icon>
         <div mat-line>
           <div class="ingName">

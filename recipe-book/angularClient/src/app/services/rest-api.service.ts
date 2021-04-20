@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { RecipeService } from "./recipe.service";
 import { Recipe } from "../model/recipe.model";
 
 @Injectable({providedIn: 'root'})
@@ -12,12 +11,10 @@ export class DataStorageService {
     })
   }
 
-  constructor(private http: HttpClient, private recipeService: RecipeService) {}
+  constructor(private http: HttpClient) {}
 
   fetchRecipes(){
-    this.http.get<Recipe[]>(this.apiUrl + '/recipes').subscribe(data => {
-      this.recipeService.setRecipes(data);
-    });
+    return this.http.get<Recipe[]>(this.apiUrl + '/recipes');
   }
 
   fetchRecipeById(id: number) {

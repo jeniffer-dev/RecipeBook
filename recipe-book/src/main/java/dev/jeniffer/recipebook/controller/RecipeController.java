@@ -20,6 +20,7 @@ import dev.jeniffer.recipebook.repository.IngredientRepository;
 import dev.jeniffer.recipebook.repository.InstructionRepository;
 import dev.jeniffer.recipebook.repository.RecipeIngredientRepository;
 import dev.jeniffer.recipebook.repository.RecipeRepository;
+import dev.jeniffer.recipebook.service.RecipeService;
 import dev.jeniffer.recipebook.exception.ResourceNotFoundException;
 import dev.jeniffer.recipebook.model.Ingredient;
 import dev.jeniffer.recipebook.model.Instruction;
@@ -42,6 +43,9 @@ public class RecipeController {
 	
 	@Autowired
 	private InstructionRepository instructionRepository; 
+	
+	@Autowired
+	private RecipeService recipeService;
 	
 	@GetMapping("")
 	public ResponseEntity<List<Recipe>> getAllRecipes() {
@@ -86,14 +90,14 @@ public class RecipeController {
 	
 	@PutMapping("/{recipeId}") 
 	public ResponseEntity<Recipe> updateRecipe(@PathVariable Long recipeId,
-			@RequestBody Recipe recipeRequest) throws ResourceNotFoundException {
-		Recipe recipe = recipeRepository.findById(recipeId)
-				.orElseThrow(() -> new ResourceNotFoundException("Not found recipe with id: " + recipeId));
+			@RequestBody Recipe recipeRequest) {
+		try {
+			return new ResponseEntity<>(recipeService.updateRecipe(recipeId, recipeRequest), HttpStatus.OK);
+		} catch (ResourceNotFoundException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		
-			recipe.setName(recipeRequest.getName());
-			recipe.setCookTime(recipeRequest.getCookTime());
-			recipe.setPreparationTime(recipeRequest.getPreparationTime());
-			return new ResponseEntity<>(recipeRepository.save(recipe), HttpStatus.OK);
+			
 	}
 	
 	@DeleteMapping("")

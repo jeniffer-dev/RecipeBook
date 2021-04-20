@@ -45,6 +45,7 @@
               <mat-form-field class="form-field" appearance="outline">
                 <mat-label>Ingredient</mat-label>
                 <input matInput
+                [readonly] = "editMode"
                 type="text"
                 formControlName="name">
               </mat-form-field>
@@ -66,7 +67,10 @@
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile colspan="1" rowspan="1">
-              <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+              <button
+              mat-icon-button color="warn"
+              type="button"
+              (click)="onRemoveRecipeIngredient()">
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-grid-tile>
